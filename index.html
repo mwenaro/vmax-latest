@@ -24,10 +24,11 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
     <!-- Using CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <script src="/ng/ng-main.js"></script>
   </head>
 
-  <body ng-contoller="vmaxController">
+  <body ng-controller="vmaxController">
     <!-- watsapp toggle -->
 
     <!-- toggler -->
@@ -35,7 +36,7 @@
       <input type="checkbox" class="toggler" />
       <div class="hamburger">
         <i class="fab fa-whatsapp" aria-hidden="true"></i>
-        <div>{{ greeting }}</div>
+        <div></div>
       </div>
     </div>
 
@@ -567,7 +568,10 @@
       <div class="section-content">
         <div class="container">
           <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-6">
+            <div
+              class="col-xl-4 col-lg-4 col-md-6"
+              ng-repeat="cover in insurance_covers"
+            >
               <div class="services-boxes">
                 <div class="services-inner">
                   <div class="services-shape">
@@ -576,55 +580,9 @@
                   <div class="services-count"></div>
                   <!-- <i class="services-icon webexflaticon flaticon-networking"></i> -->
                   <h4 class="services-title">
-                    <a href="getquote.html">Motor Insurance</a>
+                    <a href="getquote.html">{{cover.title}}</a>
                   </h4>
-                  <p class="services-description">
-                    Ensure your well-being with medical coverage for treatments,
-                    prescriptions, and emergencies.
-                  </p>
-                  <div class="services-link">
-                    <a class="text-btn" href="getquote.html">Get quote</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="services-boxes">
-                <div class="services-inner">
-                  <div class="services-shape">
-                    <img src="images/objects/6.png" alt="" />
-                  </div>
-                  <div class="services-count"></div>
-                  <!-- <i class="services-icon webexflaticon flaticon-umbrella"></i> -->
-                  <h4 class="services-title">
-                    <a href="getquote.html">Medical & Travel</a>
-                  </h4>
-                  <p class="services-description">
-                    Provides indemnity against loss or damage to property
-                    following forcible or violent entry or exit from insured
-                    premises.
-                  </p>
-                  <div class="services-link">
-                    <a class="text-btn" href="getquote.html">Get quote</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="services-boxes">
-                <div class="services-inner">
-                  <div class="services-shape">
-                    <img src="images/objects/6.png" alt="" />
-                  </div>
-                  <div class="services-count"></div>
-                  <!-- <i class="services-icon webexflaticon flaticon-delivery-truck-1"></i> -->
-                  <h4 class="services-title">
-                    <a href="getquote.html">General Insurance</a>
-                  </h4>
-                  <p class="services-description">
-                    Protect your vehicle with comprehensive coverage for
-                    accidents, damage, and liability.
-                  </p>
+                  <p class="services-description">{{cover.description}}</p>
                   <div class="services-link">
                     <a class="text-btn" href="getquote.html">Get quote</a>
                   </div>
@@ -973,7 +931,7 @@
     <script src="js/jquery.v1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-core-plugins.js"></script>
-    <!-- <script src="./ng/ng-main.js"></script> -->
+    <!-- <script src="/ng/ng-main.js"></script> -->
     <script src="js/main.js"></script>
     <script src="watsapptoggle.js"></script>
   </body>
