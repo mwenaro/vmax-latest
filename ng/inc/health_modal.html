@@ -1,0 +1,60 @@
+<div id="{{insurance.modalId}}" class="modal-window">
+    <div class="modal-window__title">
+      <div class="x-remove-modal">
+        <p class="modal-close">&times;</p>
+      </div>
+      <div class="row text-danger" ng-show="getSelectedCompany()==null">No company selected!</div>
+
+      <div class="modal-window-p-download">
+        <div class="border-same">
+          <h1>Claim Form</h1>
+          <hr />
+          <p>Outpatient</p>
+          <hr />
+          <!-- <a
+            href="https://www.apainsurance.org/pdf/claim/Outpatient%20Claim%20Form.pdf"
+            target="_blank"
+            >Download</a
+          > -->
+          <div ng-include="'./includes/download_link_template.html'"></div>
+        </div>
+        <div class="border-same">
+          <h1>Claim Form</h1>
+          <hr />
+          <p>Inpatient</p>
+          <hr />
+          <!-- <a
+            href="https://www.apainsurance.org/pdf/claim/Inpatient%20Preauthorisation%20Claim%20Form.pdf"
+            target="_blank"
+            >Download</a
+          > -->
+          <div ng-include="'./includes/download_link_template.html'"></div>
+        </div>
+        <div class="border-same">
+          <h1>Authorisation</h1>
+          <hr />
+          <p>Dental</p>
+          <hr />
+          <!-- <a
+            href="https://www.apainsurance.org/pdf/claim/Dental%20Preauthorisation%20Claim%20Form.pdf"
+            target="_blank"
+            >Download</a
+          > -->
+          <div ng-include="'./includes/download_link_template.html'"></div>
+        </div>
+        <div class="border-same">
+          <h1>Claim Form</h1>
+          <hr />
+          <p>Optical</p>
+          <hr />
+          <!-- <a
+            href="https://www.apainsurance.org/pdf/claim/APA%20Optical%20Claim%20Form.pdf"
+            target="_blank"
+            >Download</a
+          > -->
+          <div ng-include="'./includes/download_link_template.html'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

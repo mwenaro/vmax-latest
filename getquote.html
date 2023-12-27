@@ -300,7 +300,8 @@
 					<div class="request-a-call-back-form mrb-md-60">
 						<!-- <h2 class="mrt-0 mrb-25 solid-bottom-line">Get a Quote</h2>
 						<p class="mrb-30">Distinctively exploit optimal alignments for intuitive coordinate business applications technologies</p> -->
-						<form action="https://api.web3forms.com/submit" method="POST" >
+						<!-- <form action="https://api.web3forms.com/submit" method="POST" > -->
+						<form action="./get_quote.php" method="POST">
 						<!-- <form action="claim_form.php" method="POST" >	 -->
 							<input
 							  type="hidden"
@@ -485,7 +486,7 @@
 		switch (val.trim()) {
 			case "motor insurance":
 				return extraFields.innerHTML = `
-				<select name="clam-type" id="claim-type" class="select-1" style="width: 100%;" >
+				<select name="claim-type" id="claim-type" class="select-1" style="width: 100%;" >
 					<option value="">Sub Category</option>
 					<option value="comprehensive">Comprehensive</option>
 					<option value="third-party">Third Part</option>
