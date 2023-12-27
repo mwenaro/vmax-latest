@@ -5,7 +5,7 @@ app.controller("vmaxController", function ($scope) {
   console.log($scope.greeting, " in vmaxController");
 
 
-  // Insurance covers
+  // index Insurance covers
   $scope.insurance_covers = [
     {
       title: "Motor Insurance",
