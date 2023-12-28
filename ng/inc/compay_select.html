@@ -1,4 +1,4 @@
-<select ng-model="selectedImage" class="image-select">
+<select required ng-model="selectedImage" class="image-select">
   <option ng-repeat="image in companys" value="{{image.image_name}}" class="{{setSelectedCompany()===image.image_name?'card p-5' :''}}">
     <img
       ng-src="{{image.src}}"
