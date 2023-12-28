@@ -200,23 +200,7 @@
 											</li>
 										</ul>
 									</div>
-									<div class="side-panel-element mrb-30">
-										<h4 class="mrb-15">Pintarest</h4>
-										<ul class="pintarest-list">
-											<li><a href="#"><img class="img-full" src="images/side-panel/1.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/2.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/3.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/4.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/5.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/6.jpg"
-														alt=""></a></li>
-										</ul>
-									</div>
+									
 								</div>
 								<h4 class="mrb-15">Social List</h4>
 								<ul class="social-list">
@@ -230,14 +214,17 @@
 								<nav id="mobile-menu-right">
 									<ul>
 										<li class="has-sub">
-											<a href="index.html" class="hover">Home</a>
+											<a href="/" class="hover">Home</a>
 										</li>
 										<li class="has-sub">
 											<a href="#">Covers &#8675;</a>
 											<ul class="sub-menu" style="border-top: 4px solid #FAB758;">
-												<li><a href="motorinsurance.html">Motor Insurance</a></li>
-												<li><a href="mediacalandtravel.html">Medical & Travel</a></li>
-												<li><a href="general.html">General Insurance</a></li>
+												<li><a href="motor-insurance.html">Motor Insurance</a></li>
+												<li><a href="medical-insurance.html">Medical Insurance</a></li>
+												<li><a href="travel-insurance.html">Travel Insurance</a></li>
+												<li><a href="domestic-insurance.html">Domestic Package / Home Insurance</a></li>
+												<li><a href="marine-insurance.html">Marine Insurance</a></li>
+												<li><a href="business-insurance.html">Business Insurance</a></li>
 											</ul>
 										</li>
 										<li>
@@ -313,37 +300,56 @@
 					<div class="request-a-call-back-form mrb-md-60">
 						<!-- <h2 class="mrt-0 mrb-25 solid-bottom-line">Get a Quote</h2>
 						<p class="mrb-30">Distinctively exploit optimal alignments for intuitive coordinate business applications technologies</p> -->
-						<form action="#">
+						<!-- <form action="https://api.web3forms.com/submit" method="POST" > -->
+						<form action="./get_quote.php" method="POST">
+						<!-- <form action="claim_form.php" method="POST" >	 -->
+							<input
+							  type="hidden"
+							  name="subject"
+							  value="VMAX Get Quote Form"
+							/>
+			
+							<input
+							  type="hidden"
+							  name="redirect"
+							  value="https://web3forms.com/success"
+							/>
+							<input
+							  type="hidden"
+							  name="access_key"
+							  value="6872871e-b06c-4600-85f9-166b7183e377"
+							/>
 							<div class="row form-input">
 								<div class="col-lg-12">
 									<div class="mrb-20">
 										<div class="name-inp" style="width: 100%;">
-											<input type="text" placeholder="Name" style="width: 100%;">	
+											<input type="text" placeholder="Name" style="width: 100%;" name="name">	
 										</div>
 										<div class="phone-email">
-											<input type="text" placeholder="Phone">
-											<input type="email" placeholder="Email">
+											<input type="text" placeholder="Phone" name="phone">
+											<input type="email" placeholder="Email" name="email">
 										</div>
 										<div class="phone-email">
-											<input type="text" placeholder="Monthly Savings Target(KSh.)">
-											<select name="" id="" class="select-input-1">
-												<option value="">Cover interested in</option>
-												<option value="">MARINE COVER</option>
-												<option value="">DOMESTIC PACKAGE</option>
-												<option value="">INDUSTRIAL ALL RISKS</option>
-												<option value="">WIBA</option>
-												<option value="">BURGLARY</option>
-												<option value="">POLITICAL VIOLENCE/ SABOTAGE INSURANCE</option>
-												<option value="">MEDICAL INSURANCE</option>
-												<option value="">EMPLOYERS LIABILITY</option>
-												<option value="">TRAVEL INSURANCE</option>
-												<option value="">GROUP, PERSONAL ACCIDENT</option>
-												<option value="">GOODS IN TRANSIT</option>
-												<option value="">Motor Insurance</option>
+											<input type="text" placeholder="Monthly Savings Target(KSh.)" name="monthly-savings">
+											<select name="clam-type" id="claim-type" class="select-input-1" >
+												<option value="">Type of claim</option>
+												<option value="marine cover">MARINE COVER</option>
+												<option value="domestic package">DOMESTIC PACKAGE</option>
+												<option value="industrial risks">INDUSTRIAL ALL RISKS</option>
+												<option value="wiba">WIBA</option>
+												<option value="burglary">BURGLARY</option>
+												<option value="potitical violence">POLITICAL VIOLENCE/ SABOTAGE INSURANCE</option>
+												<option value="medical">MEDICAL INSURANCE</option>
+												<option value="employers liability">EMPLOYERS LIABILITY</option>
+												<option value="travel insurance">TRAVEL INSURANCE</option>
+												<option value="gruop, personal accident">GROUP, PERSONAL ACCIDENT</option>
+												<option value="goods in transit">GOODS IN TRANSIT</option>
+												<option value="motor insurance">Motor Insurance</option>
 											</select>
 										</div>
+										<div id="more-fields"></div>
 										<div class="t-area">
-											<textarea name="" id="" cols="30" rows="10" placeholder="Additional Request."></textarea>
+											<textarea name="message" id="" cols="30" rows="10" placeholder="Additional Request."></textarea>
 										</div>
 										
 										
@@ -471,6 +477,51 @@
 	<script src="js/jquery-core-plugins.js"></script>
 	<script src="js/main.js"></script>
 	<script src="watsapptoggle.js"></script>
+	<script>
+		function addMoreFieds (e){
+			let extraFields = document.querySelector('#more-fields'),
+			val = e.target.value
+		
+			console.log({val})
+		switch (val.trim()) {
+			case "motor insurance":
+				return extraFields.innerHTML = `
+				<select name="claim-type" id="claim-type" class="select-1" style="width: 100%;" >
+					<option value="">Sub Category</option>
+					<option value="comprehensive">Comprehensive</option>
+					<option value="third-party">Third Part</option>
+				</select>
+				
+				`
+				break;
+				case "medical":
+				return extraFields.innerHTML = `
+				<div class="phone-email">
+					<input type="number" placeholder="Enter Age" name="age"  required>
+					<input type="text" placeholder="Limit of Cover" name="limit-of-cover"   required>
+				</div>
+				
+				`
+				break;
+				case "travel insurance":
+				return extraFields.innerHTML = `
+				<div class="phone-email">
+					<input type="number" placeholder="Enter Age" name="age"  required>
+					<input type="text" placeholder="Destination of travel" name="destination-of-travel"   required>
+					<input type="number" placeholder="Duration of Travel" name="duration-of-travel"   required>
+				</div>
+				
+				`
+				break;
+			default:
+		
+				break;
+		}
+		}
+		
+		document.querySelector("#claim-type").addEventListener("change",addMoreFieds )
+		
+		</script>
 </body>
 
 </html>

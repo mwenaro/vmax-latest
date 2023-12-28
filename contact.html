@@ -199,23 +199,7 @@
 											</li>
 										</ul>
 									</div>
-									<div class="side-panel-element mrb-30">
-										<h4 class="mrb-15">Pintarest</h4>
-										<ul class="pintarest-list">
-											<li><a href="#"><img class="img-full" src="images/side-panel/1.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/2.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/3.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/4.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/5.jpg"
-														alt=""></a></li>
-											<li><a href="#"><img class="img-full" src="images/side-panel/6.jpg"
-														alt=""></a></li>
-										</ul>
-									</div>
+									
 								</div>
 								<h4 class="mrb-15">Social List</h4>
 								<ul class="social-list">
@@ -229,14 +213,17 @@
 								<nav id="mobile-menu-right">
 									<ul>
 										<li class="has-sub">
-											<a href="index.html" class="hover">Home</a>
+											<a href="/" class="hover">Home</a>
 										</li>
 										<li class="has-sub">
 											<a href="#">Covers &#8675;</a>
 											<ul class="sub-menu" style="border-top: 4px solid #FAB758;">
-												<li><a href="motorinsurance.html">Motor Insurance</a></li>
-												<li><a href="mediacalandtravel.html">Medical & Travel</a></li>
-												<li><a href="general.html">General Insurance</a></li>
+												<li><a href="motor-insurance.html">Motor Insurance</a></li>
+												<li><a href="medical-insurance.html">Medical Insurance</a></li>
+												<li><a href="travel-insurance.html">Travel Insurance</a></li>
+												<li><a href="domestic-insurance.html">Domestic Package / Home Insurance</a></li>
+												<li><a href="marine-insurance.html">Marine Insurance</a></li>
+												<li><a href="business-insurance.html">Business Insurance</a></li>
 											</ul>
 										</li>
 										<li>
@@ -316,35 +303,83 @@
 				</div> -->
 				<div class="col-xl-8">
 					<div class="contact-form">
-						<form method="post" action="php/send-mail.php">
+						<!-- <form action="https://api.web3forms.com/submit" method="POST"> -->
+							<form action="/contact_form.php" method="POST">
+							<input
+							  type="hidden"
+							  name="subject"
+							  value="VMAX Contact Form"
+							/>
+			
+							<input
+							  type="hidden"
+							  name="redirect"
+							  value="https://web3forms.com/success"
+							/>
+							<input
+							  type="hidden"
+							  name="access_key"
+							  value="6872871e-b06c-4600-85f9-166b7183e377"
+							/>
 							<div class="row">
-								<div class="col-lg-6">
-									<div class="form-group mrb-25">
-										<input type="text" name="name" placeholder="Name" class="form-control" required>
-									</div>
+							  <div class="col-lg-6">
+								<div class="form-group mrb-25">
+								  <input
+									type="text"
+									name="name"
+									placeholder="Name"
+									class="form-control"
+									required
+								  />
 								</div>
-								<div class="col-lg-6">
-									<div class="form-group mrb-25">
-										<input type="text" name="phone" placeholder="Phone" class="form-control" required>
-									</div>
+							  </div>
+							  <div class="col-lg-6">
+								<div class="form-group mrb-25">
+								  <input
+									type="text"
+									name="phone"
+									placeholder="Phone"
+									class="form-control"
+									required
+								  />
 								</div>
-								<div class="col-lg-12">
-									<div class="form-group mrb-25">
-										<input type="email" name="email" placeholder="Email" class="form-control" required>
-									</div>
+							  </div>
+							  <div class="col-lg-12">
+								<div class="form-group mrb-25">
+								  <input
+									type="email"
+									name="email"
+									placeholder="Email"
+									class="form-control"
+									required
+								  />
 								</div>
-								<div class="col-lg-12">
-									<div class="form-group mrb-25">
-										<textarea rows="4" name="message" placeholder="Messages" class="form-control" required></textarea>
-									</div>
+							  </div>
+							  <div class="col-lg-12">
+								<div class="form-group mrb-25">
+								  <textarea
+									rows="4"
+									name="message"
+									placeholder="Messages"
+									class="form-control"
+									required
+								  ></textarea>
 								</div>
-								<div class="col-lg-8">
-									<div class="form-group">
-										<button type="submit" name="submit" class="cs-btn-one btn-md btn-round btn-primary-color element-shadow btn-colorr" value="Send">Send</button>
-									</div>
+							  </div>
+							  <div class="col-lg-8">
+								<div class="form-group">
+								  <button
+									type="submit"
+									name="submit"
+									class="cs-btn-one btn-md btn-round btn-primary-color element-shadow btn-colorr"
+									value="Send"
+								  >
+									Send
+								  </button>
 								</div>
+							  </div>
 							</div>
-						</form>
+						  </form>
 					</div>
 				</div>
 			</div>

@@ -1,0 +1,28 @@
+<!-- /#modal_1 -->
+<div id="{{insurance.modalId}}" class="modal-window" ng-controller="vmaxController">
+    <div class="modal-window__title">
+        <div class="x-remove-modal">
+            <p class="modal-close">&times;</p>
+        </div>
+        <div class="row text-danger" ng-show="getSelectedCompany()==null">No company selected!</div>
+        <div class="modal-window-p-download">
+            
+            <div class="border-same">
+                <h1>Claim Form</h1>
+                <hr />
+                <p>Motor Cover</p>
+                <hr />
+                <div ng-include="'./includes/download_link_template.html'"></div>
+                <!-- <a href="https://www.apainsurance.org/pdf/claim/motor_claim_form.pdf" target="_blank">Download</a> -->
+            </div>
+            <div class="border-same">
+                <h1>Claim Form</h1>
+                <hr />
+                <p>Windscreen</p>
+                <hr />
+                <div ng-include="'./includes/download_link_template.html'"></div>
+                <!-- <a href="https://www.apainsurance.org/pdf/claim/motor_claim_form.pdf" target="_blank">Download</a> -->
+            </div>
+        </div>
+    </div>
+</div>

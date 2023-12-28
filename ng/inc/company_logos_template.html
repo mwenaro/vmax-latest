@@ -1,0 +1,5 @@
+<div class="m-auto container" id="company-logos">
+  <span ng-repeat="image in $ctrl.companys" value="{{image.image_name}}" class="{{selectedCompany===image.image_name.trim()?'card  p-1 bg-success':''}}">
+    <button ng-click="setSelectedCompany(image.image_name)" ><img  ng-src="{{image.src}}" width="100px" ></button>
+  </span>
+</div>
