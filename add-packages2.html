@@ -5,7 +5,7 @@
   </head>
   <body>
     <form class="max-w-[1000px] w-[99%] mx-auto mt-16" id="form">
-      <input name="id" type="hidden" id="id">
+      <input name="id" type="hidden" id="id" />
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="company">
           Select Company
@@ -218,12 +218,11 @@
               );
               if (response.ok)
                 alert(`Successfully ${id ? "Updated" : "Created"} `);
+              // Reloads the current page
+              location.reload();
             } catch (error) {
               alert(`${id ? "Update" : "Create"} failed. Try again`);
               console.error({ msg: error.message });
-            } finally {
-              // Render the table with the fetched data
-              getItems();
             }
           })();
         }
@@ -278,13 +277,13 @@
             package: formData.get("package") ?? "",
             downloadLink: formData.get("downloadLink") ?? "",
           };
-          if(formData.get("id")){
-            formPostData['id'] = formData.get("id")
+          if (formData.get("id")) {
+            formPostData["id"] = formData.get("id");
           }
 
           // Perform form submission logic here
           handlePost(formPostData);
-          
+
           e.target.reset();
         }
 
@@ -302,7 +301,8 @@
             subCategoryBox.classList.remove("hidden");
             updateSubCategories();
           }
-          document.getElementById("subCategory").value = item.subCategory.trim();
+          document.getElementById("subCategory").value =
+            item.subCategory.trim();
           document.getElementById("downloadLink").value = item.downloadLink;
         }
 
