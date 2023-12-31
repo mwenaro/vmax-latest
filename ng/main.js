@@ -302,12 +302,12 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
   var selectedCompany = "apa";
   const imageArray = [
+    "/img/apa.png",
     "/img/kenindia.png",
     "/img/ga-insurance.png",
     "/img/mayfair-insurance.png",
     "/img/intra.png",
     "/img/geminia.png",
-    "/img/apa.png",
   ];
   // console.log({ defaultPackages });
   const companyData = imageArray.map((src) => {
@@ -349,7 +349,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Create an h3 element for the category title
       let categoryTitle = document.createElement("h3");
-      categoryTitle.className = "claimforms-texts text-xl md:text-2xl lg:text-3xl font-bold";
+      categoryTitle.className =
+        "claimforms-texts text-xl md:text-2xl lg:text-3xl font-bold";
       categoryTitle.textContent = category.title;
 
       // Append the title to the category div
@@ -398,14 +399,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create the h4 element for the insurance title
         let insuranceTitle = document.createElement("h4");
-        insuranceTitle.className = "services-title texl-lg md:text-xl lg:text-2xl capitalize font-semibold";
+        insuranceTitle.className =
+          "services-title texl-lg md:text-xl lg:text-2xl capitalize font-semibold";
 
         let a_tag = document.createElement("a");
         a_tag.innerHTML = `<a> ${
           insurance.title
             ? insurance.title
-            : insurance.category +             
-              " Insurance  "
+            : insurance.category + " Insurance  "
         }      </a>`;
         insuranceTitle.appendChild(a_tag);
         // Append the title to the services-inner div
@@ -459,9 +460,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 (str += `<div class="border-same flex flex-col gap-2">
     <h1>Claim Form</h1>
     <hr />
-    <p class="capitalize">${p.package?.length>0? p.package:"Package Link"}</p>
+    <p class="capitalize">${
+      p.package?.length > 0 ? p.package : "Package Link"
+    }</p>
     <hr />
-    <a href="${p.downloadLink}" target="_blank" class="text-center text-base md:text-lg">Download</a>
+    <a href="${
+      p.downloadLink
+    }" target="_blank" class="text-center text-base md:text-lg">Download</a>
   </div>`),
               ""
             )
@@ -470,7 +475,9 @@ document.addEventListener("DOMContentLoaded", function () {
   <hr />
   <p class="capitalize">Package Link</p>
   <hr />
-  <a href="${insurance.packages[0].downloadLink ?? "#"}" target="_blank" class="text-center text-base md:text-lg">Download</a>
+  <a href="${
+    insurance.packages[0].downloadLink ?? "#"
+  }" target="_blank" class="text-center text-base md:text-lg">Download</a>
 </div>`;
         //Add the actually links to the form
         modalWindowDownload.innerHTML = downloadFormCard;
@@ -501,9 +508,6 @@ document.addEventListener("DOMContentLoaded", function () {
     categoriesContainer.innerHTML = "";
     categoriesContainer.appendChild(rowsContainer);
   }
-
-  
-  
 
   // variable declaration
   let companyLogosContainer = document.querySelector(
