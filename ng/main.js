@@ -453,13 +453,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let modalWindowDownload = document.createElement("div");
         modalWindowDownload.className = "modal-window-p-download";
 
-        let downloadFormCard = insurance.length
+        let downloadFormCard = insurance.packages.length
           ? insurance?.packages.reduce(
               (str, p) =>
                 (str += `<div class="border-same flex flex-col gap-2">
     <h1>Claim Form</h1>
     <hr />
-    <p class="capitalize">${p.title}</p>
+    <p class="capitalize">${p.package??"Package Link"}</p>
     <hr />
     <a href="${p.downloadLink}" target="_blank" class="text-center text-base md:text-lg">Download</a>
   </div>`),
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <hr />
   <p class="capitalize">Package Link</p>
   <hr />
-  <a href="${insurance.downloadLink ?? "#"}" target="_blank" class="text-center text-base md:text-lg">Download</a>
+  <a href="${insurance.packages[0].downloadLink ?? "#"}" target="_blank" class="text-center text-base md:text-lg">Download</a>
 </div>`;
         //Add the actually links to the form
         modalWindowDownload.innerHTML = downloadFormCard;
