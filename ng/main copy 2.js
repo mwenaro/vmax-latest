@@ -1,104 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  let insurancePackagesContainer = document.querySelector(
-    "#packages-container"
-  );
-  let fetchPackages = [],
-    fetchedAndCagorized = [];
-  getData();
-  function groupData(inputData) {
-    const groupedData = {};
-
-    inputData.forEach((item) => {
-      const key = `${item.company}-${item.category}-${item.title}`;
-
-      if (!groupedData[key]) {
-        groupedData[key] = {
-          company: item.company,
-          category: item.category,
-          title: item.title,
-          packages: [],
-        };
-      }
-
-      groupedData[key].packages.push({
-        package: item.package,
-        downloadLink: item.downloadLink,
-      });
-    });
-
-    return Object.values(groupedData);
-  }
-
-  // set insurance packages
-  const extractPackage = (p) => {
-    let package = {
-      company: p.company,
-      category: p.category,
-      title: p.subCategory,
-      package: p?.package || "",
-      downloadLink: p.downloadLink,
-    };
-
-    return package;
-  };
-
-  async function getData() {
-    try {
-      const data = await (
-        await fetch("https://vmaxapi.fonfixrepairs.co.ke/insurances.php")
-      ).json();
-      fetchPackages = data.length ? data : [];
-      console.log({ data });
-    } catch (error) {
-      console.log({ errorMessage: error.message });
-    } finally {
-      // console.log({ fetchedCagorized: getCompanyData(selectedCompany) });
-      getCompanyData(selectedCompany);
-      // loadPackages();
-    }
-  }
-
-  function getCompanyData(company = selectedCompany) {
-    let data = fetchPackages.filter((item) => company == item.company) ?? [];
-    let processeddata = [
-      {
-        title: "Motor Insurance",
-        packages:
-          // data.filter((d) => d.category == "motor").map(extractPackage) ?? [],
-          groupData(
-            data.filter((d) => d.category == "motor").map(extractPackage) ?? []
-          ),
-      },
-      {
-        title: "Other Common Insurances",
-        packages:
-          // data
-          // .filter((d) => !["motor", "business"].includes(d.category))
-          // .map(extractPackage) ?? [],
-          groupData(
-            data
-              .filter((d) => !["motor", "business"].includes(d.category))
-              .map(extractPackage) ?? []
-          ),
-      },
-      {
-        title: "Business Insurance",
-        packages:
-          // data.filter((d) => d.category == "business").map(extractPackage) ??
-          // [] ??
-          // []
-          groupData(
-            data.filter((d) => d.category == "business").map(extractPackage) ??
-              []
-          ),
-      },
-    ];
-    fetchedAndCagorized = processeddata ?? [];
-    console.log({ fetchedAndCagorized });
-    loadPackages();
-    return processeddata ?? [];
-  }
-
+  let insuranceCategories = [];
+  let packagesContainer = document.querySelector("#packages-container");
   let defaultPackages = [
     {
       title: "Motor Insurance",
@@ -300,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
     },
   ];
-  var selectedCompany = "apa";
+  let selectedCompany = "";
   const imageArray = [
     "/img/kenindia.png",
     "/img/ga-insurance.png",
@@ -309,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "/img/geminia.png",
     "/img/apa.png",
   ];
-  // console.log({ defaultPackages });
+
   const companyData = imageArray.map((src) => {
     // Extract image name from the src URL without the extension
     const imageName = src
@@ -324,46 +226,46 @@ document.addEventListener("DOMContentLoaded", function () {
       image_name: imageName,
     };
   });
-  // loadPackages();
+  loadPackages();
   function loadPackages() {
-    // getCompanyData(selectedCompany);
     // Assuming you have the insurance_covers array
-    let categoriesContainer = insurancePackagesContainer;
-    // Create a container for insurance categories
-    // let categoriesContainer = packagesContainer;
-    // categoriesContainer.innerHTML = ""
-    let rowsContainer = document.createElement("div");
-    rowsContainer.className = "w-full";
-    // Iterate over each category in the insurance_covers array
-    // console.log({fetchedAndCagorized})
 
-    (fetchedAndCagorized.length
-      ? fetchedAndCagorized
-      : defaultPackages
-    ).forEach(function (category) {
+    // Create a container for insurance categories
+    let categoriesContainer = packagesContainer
+
+    // Iterate over each category in the insurance_covers array
+    defaultPackages.forEach(function (category) {
       // Create a div for the category
       let categoryDiv = document.createElement("div");
-      // containerDiv = document.createElement("div")
-
+          // containerDiv = document.createElement("div")
+      
       categoryDiv.className = "row";
 
       // Create an h3 element for the category title
       let categoryTitle = document.createElement("h3");
-      categoryTitle.className = "claimforms-texts text-xl md:text-2xl lg:text-3xl font-bold";
+      categoryTitle.className = "claimforms-texts";
       categoryTitle.textContent = category.title;
 
       // Append the title to the category div
       categoryDiv.appendChild(categoryTitle);
 
-      //   Iterate over each insurance package in the category
+
+
+    //   Iterate over each insurance package in the category
       category.packages.forEach(function (insurance) {
         // Create a div for the insurance package
         let insuranceDiv = document.createElement("div");
-        const columnClass = `col-xl-${
-          category.packages.length >= 4 ? "3" : "4"
-        } col-lg-${category.packages.length >= 4 ? "3" : "4"} col-md-6`;
-
-        insuranceDiv.className = columnClass;
+        const columnClass = `col-xl-${category.packages.length >= 4 ? '3' : '4'} col-lg-${
+          category.packages.length >= 4 ? '3' : '4'
+        } col-md-6`;
+       
+               
+        insuranceDiv.className =
+          "col-xl-" +
+          (category.packages.length >= 4 ? "3" : "4") +
+          " col-lg-" +
+          (category.packages.length >= 4 ? "3" : "4") +
+          " col-md-6";
 
         // Create the services-boxes div
         let servicesBoxesDiv = document.createElement("div");
@@ -392,22 +294,13 @@ document.addEventListener("DOMContentLoaded", function () {
         servicesInnerDiv.appendChild(servicesShapeDiv);
 
         // Create the services-count div (assuming it's empty in your example)
-        let servicesCountDiv = document.createElement("div");
-        servicesCountDiv.className = "services-count";
-        servicesInnerDiv.appendChild(servicesCountDiv);
 
         // Create the h4 element for the insurance title
         let insuranceTitle = document.createElement("h4");
-        insuranceTitle.className = "services-title texl-lg md:text-xl lg:text-2xl capitalize font-semibold";
+        insuranceTitle.className = "services-title";
+        insuranceTitle.innerHTML =
+          "<a>" + insurance.title + " - " + getSelectedCompany() + "</a>";
 
-        let a_tag = document.createElement("a");
-        a_tag.innerHTML = `<a> ${
-          insurance.title
-            ? insurance.title
-            : insurance.category +             
-              " Insurance  "
-        }      </a>`;
-        insuranceTitle.appendChild(a_tag);
         // Append the title to the services-inner div
         servicesInnerDiv.appendChild(insuranceTitle);
 
@@ -418,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Create the a element for downloading forms
         let downloadFormsLink = document.createElement("a");
         downloadFormsLink.setAttribute("class", "text-btn js-modal");
-        downloadFormsLink.setAttribute("data-modal", "#" + insurance.category);
+        downloadFormsLink.setAttribute("data-modal", "#" + insurance.modalId);
         downloadFormsLink.textContent = "Download Forms";
 
         // Append the download forms link to the services-link div
@@ -435,53 +328,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Include the modal template (assuming ng-include functionality)
         let modalTemplateDiv = document.createElement("div");
-        modalTemplateDiv.id = insurance.category;
-        modalTemplateDiv.className = "modal-window";
         // modalTemplateDiv.setAttribute("ng-include", "insurance.modalTemplate");
-        // let Modal windo
-        let modalWindowTitle = document.createElement("div");
-        modalWindowTitle.className = "modal-window__title";
+        modalTemplateDiv.innerHTML = `<div id="${insurance.modalId}" class="modal-window" >
+        <div class="modal-window__title">
+            <div class="x-remove-modal">
+                <p class="modal-close">&times;</p>
+            </div>
+        {}
+            <div class="modal-window-p-download">
+                
+                <div class="border-same">
+                    <h1>Claim Form</h1>
+                    <hr />
+                    <p>Motor Cover</p>
+                    <hr />
+                    <div ng-include="'./includes/download_link_template.html'"></div>
+                    <!-- <a href="https://www.apainsurance.org/pdf/claim/motor_claim_form.pdf" target="_blank">Download</a> -->
+                </div>
+                <div class="border-same">
+                    <h1>Claim Form</h1>
+                    <hr />
+                    <p>Windscreen</p>
+                    <hr />
+                    <div ng-include="'./includes/download_link_template.html'"></div>
+                    <!-- <a href="https://www.apainsurance.org/pdf/claim/motor_claim_form.pdf" target="_blank">Download</a> -->
+                </div>
+            </div>
+        </div>
+    </div>`
 
-        // x_removeModal
-        let x_removeModal = document.createElement("div");
-        x_removeModal.className = "x-remove-modal";
-        x_removeModal.innerHTML = `<p class="modal-close">&times;</p>`;
-        //Add the x-removeModal to the
-        modalWindowTitle.appendChild(x_removeModal);
-
-        // modalWindowDownload
-        let modalWindowDownload = document.createElement("div");
-        modalWindowDownload.className = "modal-window-p-download";
-
-        let downloadFormCard = insurance.length
-          ? insurance?.packages.reduce(
-              (str, p) =>
-                (str += `<div class="border-same flex flex-col gap-2">
-    <h1>Claim Form</h1>
-    <hr />
-    <p class="capitalize">${p.title}</p>
-    <hr />
-    <a href="${p.downloadLink}" target="_blank" class="text-center text-base md:text-lg">Download</a>
-  </div>`),
-              ""
-            )
-          : `<div class="border-same flex flex-col gap-2">
-  <h1>Claim Form</h1>
-  <hr />
-  <p class="capitalize">Package Link</p>
-  <hr />
-  <a href="${insurance.downloadLink ?? "#"}" target="_blank" class="text-center text-base md:text-lg">Download</a>
-</div>`;
-        //Add the actually links to the form
-        modalWindowDownload.innerHTML = downloadFormCard;
-
-        //Add the modalWindowDownload
-        modalWindowTitle.appendChild(modalWindowDownload);
-
-        // Add modalWindowTitle to modal
-        modalTemplateDiv.appendChild(modalWindowTitle);
-
-        //Add modal modal to insuranceDiv
+        // Append the modal template div to the insurance package div
         insuranceDiv.appendChild(modalTemplateDiv);
 
         // conta
@@ -489,32 +365,34 @@ document.addEventListener("DOMContentLoaded", function () {
         categoryDiv.appendChild(insuranceDiv);
       });
 
+
+
       // Append the category div to the container
-      // categoriesContainer.appendChild(categoryDiv);
-
-      // if(firstChild)  { categoriesContainer.removeChild(document.querySelector('.row')) }
-      // categoriesContainer.innerHTML = ""
-      rowsContainer.appendChild(categoryDiv);
-
-      // categoriesContainer.appendChild(categoryDiv)
+      categoriesContainer.appendChild(categoryDiv);
     });
-    categoriesContainer.innerHTML = "";
-    categoriesContainer.appendChild(rowsContainer);
-  }
 
-  
-  
+    // Function to be called on click
+    function alerty() {
+      alert("Insurance clicked!");
+    }
+
+    // Function to get the selected company (assuming it's defined somewhere)
+    function getSelectedCompany() {
+      // Replace this with your logic to get the selected company
+      return "SelectedCompany";
+    }
+  }
 
   // variable declaration
   let companyLogosContainer = document.querySelector(
     "#company-logos-container"
   );
 
-  //   loadPackages(defaultPackages);
+//   loadPackages(defaultPackages);
   function setSelectedCompany(val) {
     selectedCompany = val;
+    console.log({ selectedCompany: val });
     loadLogos();
-    getCompanyData();
   }
   // Load the logs
   loadLogos();

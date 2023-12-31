@@ -330,22 +330,40 @@ app.controller("vmaxController", function ($scope, companyService) {
   ];
 
   // set insurance packages
+  const extractPackage = (p) => {
+    let package = {
+      company: p.company,
+      category: p.category,
+      title: p.subCategory,
+      package: p?.package || "",
+      downloadLink: p.downloadLink,
+    };
+
+    return package;
+  };
+
   function getCompanyData(company) {
     let data =
       $scope.fetcheData.filter((item) => company == item.company) ?? [];
     return [
       {
         title: "Motor Insurance",
-        packages: data.filter((d) => d.category == "motor") ?? [],
+        packages:
+          data.filter((d) => d.category == "motor").map(extractPackage) ?? [],
       },
       {
         title: "Other Common Insurances",
         packages:
-          data.filter((d) => !["motor", "business"].includes(d.category)) ?? [],
+          data
+            .filter((d) => !["motor", "business"].includes(d.category))
+            .map(extractPackage) ?? [],
       },
       {
         title: "Business Insurance",
-        packages: data.filter((d) => d.category == "business") ?? [],
+        packages:
+          data.filter((d) => d.category == "business").map(extractPackage) ??
+          [] ??
+          [],
       },
     ];
   }
@@ -582,7 +600,7 @@ app.component("companyLogos", {
 
       $scope.setSelectedCompany = (val) => {
         companyService.setSelectedCompany(val.trim());
-        companyService.setCategories()
+        companyService.setCategories();
         $scope.insuranceCategories;
         console.log({ sel: $scope.getSelectedCompany() });
       };

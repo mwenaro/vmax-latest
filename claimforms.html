@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<html lang="en" >
   <head>
     <meta charset="UTF-8" />
     <meta name="author" content="Insuren" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="Vmax Insurance" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta
       name="keywords"
       content="insurance, agency, business, consulting, corporate, finance, digital, marketing, multipurpose"
@@ -28,7 +29,8 @@
 
     <!-- Using ng CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
-    <script src="/ng/ng-main.js"></script>
+    <!-- <script src="/ng/ng-main.js"></script> -->
+    <script src="./ng/main.js"></script>
     <!-- Tailwind cdn -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -77,7 +79,7 @@
     </style>
   </head>
 
-  <body ng-controller="vmaxController">
+  <body >
     <!-- watsapp toggle -->
 
     <!-- toggler -->
@@ -424,44 +426,20 @@
           </div>
         </div>
       </div>
-      <company-logos companys="companys"></company-logos>
+
+      <!-- Company logos -->
+      <div class="m-auto container flex justify-between items-center" id="company-logos-container">
+       
+      </div>
+
       <!------------------------------------------------------------------------------ modal start -->
       <div class="modal-window__backdrop hidden" id="modal-backdrop"></div>
       <!------------------------------------------------------------------------------ modal end -->
       <div class="section-content">
-        <div class="container">
+        <div class="container" id="packages-container">
           <!-- start of  Insuarence Servives-->
 
-          <div class="row" ng-repeat="category in insuranceCategories">
-					<div class="row">
-					  <h3 class="claimforms-texts">{{category.title}}</h3>
-					  <div
-						ng-repeat="insurance in category.packages"
-						class="col-xl-{{category.packages.length>=4?'3':'4'}} col-lg-{{category.packages.length>=4?'3':'4'}} col-md-6"
-					  >
-						<div class="services-boxes"  ng-click="alerty()">
-						  <div class="services-inner">
-							<div class="services-shape">
-							  <img ng-src="{{ insurance.image }}" alt="" />
-							</div>
-							<div class="services-count"></div>
-							<h4 class="services-title">
-							  <a>{{ insurance.title }} - {{getSelectedCompany()}}</a>
-							</h4>
-							<div class="services-link">
-							  <a
-							  
-								class="text-btn js-modal"
-								data-modal="#{{insurance.modalId}}"
-								>Download Forms</a
-							  >
-							</div>
-						  </div>
-						</div>
-						<div ng-include="insurance.modalTemplate"></div>
-					  </div>
-					</div>
-				  </div>
+          
           <!-- End of Motor Insuarence -->
         </div>
       </div>
