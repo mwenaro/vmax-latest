@@ -459,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 (str += `<div class="border-same flex flex-col gap-2">
     <h1>Claim Form</h1>
     <hr />
-    <p class="capitalize">${p.package??"Package Link"}</p>
+    <p class="capitalize">${p.package?.length? p.package:"Package Link"}</p>
     <hr />
     <a href="${p.downloadLink}" target="_blank" class="text-center text-base md:text-lg">Download</a>
   </div>`),
