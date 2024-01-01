@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <form class="max-w-[1000px] w-[99%] mx-auto mt-16" id="form">
+      <input name="id" type="hidden" id="id" />
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="company">
+          Select Company
+        </label>
+        <select
+          class="border rounded w-full py-2 px-3"
+          id="company"
+          name="company"
+          required
+        >
+          <option value="">--- Choose Company ---</option>
+        </select>
+      </div>
+
+      <!-- Similar changes for other form elements -->
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="category"
+        >
+          Select Category
+        </label>
+        <select
+          class="border rounded w-full py-2 px-3"
+          id="category"
+          name="category"
+          required
+        >
+          <option value="">--- Choose Category ---</option>
+        </select>
+      </div>
+
+      <div class="mb-4 hidden" id="sub-category-box">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="subcategory"
+        >
+          Select Sub-Category
+        </label>
+        <select
+          class="border rounded w-full py-2 px-3"
+          id="subCategory"
+          name="subCategory"
+        >
+          <option value="">--- Choose SubCategory ---</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="package">
+          Package
+        </label>
+        <input
+          type="text"
+          class="border rounded w-full py-2 px-3"
+          id="package"
+          name="package"
+          value=""
+          placeholder="optional e.g Wind Screen"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="downloadLink"
+        >
+          Download Link
+        </label>
+        <input
+          type="text"
+          class="border rounded w-full py-2 px-3"
+          id="downloadLink"
+          required
+          name="downloadLink"
+          placeholder="paste your download link here"
+        />
+      </div>
+
+      <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">
+        Submit
+      </button>
+    </form>
+
+    <table class="table-auto mt-4 max-w-[1200px] mx-auto my-2 w-[99%]">
+      <!-- Table structure remains the same -->
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Company</th>
+          <th class="px-4 py-2">Category</th>
+          <th class="px-4 py-2">Sub-Category</th>
+          <th class="px-4 py-2">Package</th>
+          <th class="px-4 py-2">Download Link</th>
+          <th class="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // varibles declaration
+        const subCategoryBox = document.querySelector("#sub-category-box");
+        const subCategoryBoxContent = `<label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="subcategory"
+        >
+          Select Sub-Category
+        </label>
+        <select
+          class="border rounded w-full py-2 px-3"
+          id="subCategory"
+          name="subCategory"
+          required
+          ng-model="formData.subCategory"
+        >
+          <option value="">--- Choose SubCategory ---</option>
+        </select>
+`;
+
+        const companies = [
+          "apa",
+          "geminia",
+          "ga",
+          "intra",
+          "kenindia",
+          "mayfair",
+        ];
+        const categories = [
+          "motor",
+          "medical",
+          "travel",
+          "domestic",
+          "marine",
+          "business",
+        ];
+        const rawSubCategories = {
+          motor: ["comprehensive insurance", "third party insurance"],
+          business: [
+            "Rental Property Insurance",
+            "Burglary Insurance",
+            "Work Injury Benefits Ac",
+            "Terrorism & Political Violence Liability",
+            "Stock Floater",
+            "Public Liability",
+            "Machinery Breakdown",
+            "Industrial All Risks",
+            "Floriculture",
+            "Fire & Consequential Loss",
+            "Fire & Allied Perils",
+            "Fidelity Guarantee",
+            "Employers Liability",
+            "Credit Insurance",
+            "Plant & Machinery",
+            "Contractors All Risk",
+            "Boller and Pressure Vessel",
+            "Agriculture",
+          ],
+        };
+
+        let formItems = [];
+
+        // Fetch data when the controller is initialized
+        init();
+
+        function init() {
+          getItems();
+        }
+
+        function getItems() {
+          (async () => {
+            try {
+              const response = await fetch("/insurances.php", {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+
+              const data = await response.json();
+              console.log(data); // Log the full response
+              formItems = Array.isArray(data) ? data : [];
+              console.log({ items: formItems });
+            } catch (error) {
+              console.error({ msg: error.message });
+            } finally {
+              // Render the table with the fetched data
+              renderTable();
+            }
+          })();
+        }
+
+        function handlePost(postData) {
+          const { id } = postData;
+          (async () => {
+            try {
+              const response = await fetch(
+                `/insurances.php${id ? "?id=" + id : ""}`,
+                {
+                  body: JSON.stringify(postData),
+                  method: id ? "PUT" : "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+              if (response.ok)
+                alert(`Successfully ${id ? "Updated" : "Created"} `);
+              // Reloads the current page
+              location.reload();
+            } catch (error) {
+              alert(`${id ? "Update" : "Create"} failed. Try again`);
+              console.error({ msg: error.message });
+            }
+          })();
+        }
+
+        // Add on change event listener to the category field
+        document
+          .querySelector("#category")
+          .addEventListener("change", updateSubCategories);
+        // add event handle to submit
+        document
+          .querySelector("#form")
+          .addEventListener("submit", handleSubmit);
+
+        function updateSubCategories() {
+          //Hide all the subcategories
+          subCategoryBox.classList.add("hidden");
+          var categorySelect = document.getElementById("category");
+          var selectedCategory = categorySelect.value;
+          var subCategorySelect = document.getElementById("subCategory");
+          // Clear existing options
+          subCategorySelect.innerHTML =
+            '<option value="">--- Choose SubCategory ---</option>';
+
+          // Populate sub-categories based on the selected category
+          if (rawSubCategories[selectedCategory]) {
+            // subCategoryBox.innerHTML = subCategoryBoxContent;
+
+            rawSubCategories[selectedCategory].forEach(function (subCategory) {
+              var option = document.createElement("option");
+              option.value = subCategory;
+              option.text = subCategory;
+              subCategorySelect.appendChild(option);
+            });
+          }
+
+          if (rawSubCategories[selectedCategory]) {
+            // console.log({subCate:rawSubCategories[selectedCategory]})
+            subCategoryBox.classList.remove("hidden");
+            // let box = document.querySelector("#sub-category-box")
+            // console.log({box})
+          }
+        }
+
+        function handleSubmit(e) {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+
+          var formPostData = {
+            company: formData.get("company") ?? "",
+            category: formData.get("category") ?? "",
+            subCategory: formData.get("subCategory") ?? "",
+            package: formData.get("package") ?? "",
+            downloadLink: formData.get("downloadLink") ?? "",
+          };
+          if (formData.get("id")) {
+            formPostData["id"] = formData.get("id");
+          }
+
+          // Perform form submission logic here
+          handlePost(formPostData);
+
+          e.target.reset();
+        }
+
+        function editItem(item) {
+          // Populate form fields with the selected item for editing
+          document.getElementById("company").value = item.company;
+          document.getElementById("id").value = item.id;
+          document.getElementById("category").value = item.category;
+          document.getElementById("package").value = item.package;
+
+          if (
+            ["motor", "business"].includes(item.category) ||
+            item.subCategory
+          ) {
+            subCategoryBox.classList.remove("hidden");
+            updateSubCategories();
+          }
+          document.getElementById("subCategory").value =
+            item.subCategory.trim();
+          document.getElementById("downloadLink").value = item.downloadLink;
+        }
+
+        function deleteItem(item) {
+          const { id } = item;
+          // Perform deletion logic here
+          var index = formItems.indexOf(item);
+          if (index !== -1) {
+            formItems.splice(index, 1);
+            // Update table or make a request to the server for deletion
+            (async () => {
+              try {
+                const response = await fetch(
+                  `/insurances.php${id ? "?id=" + id : ""}`,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+
+                const data = await response.json();
+                // alert("Something went wrong, try again")
+                alert(
+                  `${
+                    response.ok ? "Successfully  " : "Not Sucessfully "
+                  } Deleted `
+                );
+
+                console.log(data, "FROM DELETE "); // Log the full response
+              } catch (error) {
+                console.error({ msg: error.message, from: "delete" });
+                alert("Something went wrong, try again");
+              } finally {
+                getItems();
+              }
+            })();
+          }
+        }
+
+        function renderTable() {
+          var tableBody = document.querySelector("table tbody");
+          tableBody.innerHTML = "";
+
+          formItems.forEach(function (item) {
+            var row = tableBody.insertRow();
+            [
+              "company",
+              "category",
+              "subCategory",
+              "package",
+              "downloadLink",
+            ].forEach((key) => {
+              var cell = row.insertCell();
+              ["downloadLink"].includes(key)
+                ? (cell.innerHTML = `<a href="${item[key]}" target="_BLANK" class="text-blue-600 underline">${item[key]}</a>`)
+                : cell.appendChild(document.createTextNode(item[key] ?? ""));
+            });
+
+            var actionsCell = row.insertCell();
+            var editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.className = "bg-yellow-500 text-white py-1 px-2 rounded";
+            editButton.addEventListener("click", function () {
+              editItem(item);
+            });
+
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className =
+              "bg-red-500 text-white py-1 px-2 rounded ml-2";
+            deleteButton.addEventListener("click", function () {
+              deleteItem(item);
+            });
+
+            actionsCell.appendChild(editButton);
+            actionsCell.appendChild(deleteButton);
+          });
+        }
+
+        // Populate options for the "Select Company" dropdown
+        var companySelect = document.getElementById("company");
+        companies.forEach(function (company) {
+          var option = document.createElement("option");
+          option.value = company;
+          option.text = company;
+          companySelect.add(option);
+        });
+
+        // Populate options for the "Select Category" dropdown
+        var categorySelect = document.getElementById("category");
+        categories.forEach(function (category) {
+          var option = document.createElement("option");
+          option.value = category;
+          option.text = category;
+          categorySelect.add(option);
+        });
+
+        // Fetch data when the page is loaded
+        getItems();
+      });
+    </script>
+  </body>
+</html>

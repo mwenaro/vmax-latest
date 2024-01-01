@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Package Management</h2>
+
+<form id="packageForm">
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" required><br>
+
+    <label for="subcategory">Subcategory:</label>
+    <input type="text" id="subcategory" name="subcategory" required><br>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="downloadlink">Download Link:</label>
+    <input type="text" id="downloadlink" name="downloadlink" required><br>
+
+    <label for="company">Company:</label>
+    <input type="text" id="company" name="company" required><br>
+
+    <button type="button" onclick="createPackage()">Create Package</button>
+</form>
+
+<h3>Existing Packages</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Name</th>
+            <th>Download Link</th>
+            <th>Company</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody id="packageTableBody"></tbody>
+</table>
+<script>
+    function createPackage() {
+        var form = document.getElementById('packageForm');
+        var formData = new FormData(form);
+
+        // Convert form data to JSON
+        var jsonData = {};
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        // Make API call to create a package
+        fetch('packages.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jsonData),
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // Display the response message
+            // Refresh the package list
+            readPackages();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function readPackages() {
+        // Make API call to get existing packages
+        fetch('packages.php', {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            displayPackages(data||[]);
+        })
+        .catch(error => {
+            console.log({error:error.message})
+            // console.error('Error:', error);
+        });
+    }
+
+    function displayPackages(packages) {
+    var tableBody = document.getElementById('packageTableBody');
+    tableBody.innerHTML = ''; // Clear existing data
+    console.log(packages, "packages")
+    if (!Array.isArray(packages)) {
+        console.error('Invalid data format: ', packages);
+        return;
+    }
+
+    packages.forEach(package => {
+        var row = tableBody.insertRow();
+        row.insertCell(0).textContent = package.id;
+        row.insertCell(1).textContent = package.category;
+        row.insertCell(2).textContent = package.subcategory;
+        row.insertCell(3).textContent = package.name;
+        row.insertCell(4).innerHTML = `<a href="${package.downloadlink}" target="_blank">${package.downloadlink}</a>`;
+        row.insertCell(5).textContent = package.company;
+        row.insertCell(6).textContent = package.createAt;
+
+        // Add buttons for update and delete
+        var updateButton = document.createElement('button');
+        updateButton.textContent = 'Update';
+        updateButton.onclick = function () {
+            openUpdateForm(package);
+        };
+        row.insertCell(7).appendChild(updateButton);
+
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = function () {
+            deletePackage(package.id);
+        };
+        row.insertCell(8).appendChild(deleteButton);
+    });
+}
+
+
+    function openUpdateForm(package) {
+        // Fill the form with package data for updating
+        document.getElementById('category').value = package.category;
+        document.getElementById('subcategory').value = package.subcategory;
+        document.getElementById('name').value = package.name;
+        document.getElementById('downloadlink').value = package.downloadlink;
+        document.getElementById('company').value = package.company;
+
+        // Change the submit button to update
+        var submitButton = document.querySelector('button');
+        submitButton.textContent = 'Update Package';
+        submitButton.onclick = function() {
+            updatePackage(package.id);
+        };
+    }
+
+    function updatePackage(id) {
+        var form = document.getElementById('packageForm');
+        var formData = new FormData(form);
+
+        // Convert form data to JSON
+        var jsonData = {};
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        // Make API call to update a package
+        fetch(`packages.php?id=${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jsonData),
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log({data})
+            alert(data); // Display the response message
+            // Refresh the package list
+            readPackages();
+
+            // Reset the form and button text after updating
+            form.reset();
+            submitButton.textContent = 'Create Package';
+            submitButton.onclick = createPackage;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function deletePackage(id) {
+        // Make API call to delete a package
+        fetch(`packages.php?id=${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // Display the response message
+            // Refresh the package list
+            readPackages();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Initial load of existing packages
+    readPackages();
+</script>
+
+</body>
+</html>
