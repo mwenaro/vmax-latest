@@ -291,43 +291,71 @@ app.controller("vmaxController", function ($scope, companyService) {
   $scope.companys = companyData;
 
   // index Insurance covers
-  $scope.insurance_covers = [
-    {
-      title: "Motor Insurance",
-      description: `Ensure your well-being with medical coverage for treatments,
-            prescriptions, and emergencies.`,
-    },
-    {
-      title: `Medical Insurance`,
-      description: `Provides indemnity against loss or damage to property
-    following forcible or violent entry or exit from insured
-    premises.`,
-    },
-    {
-      title: `Travel Insurance`,
-      description: `Lorem ipsum litora praesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
-     massa ultrices porttitor metus
-      eleifend lacinia lectus amet.`,
-    },
-    {
-      title: `Domestic Insurance`,
-      description: `Ltora praesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
-    massa ultrices porttitor metus
-     eleifend lacinia lectus amet.`,
-    },
-    {
-      title: `Marine Insurance`,
-      description: `Maesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
-    massa ultrices porttitor metus
-     eleifend lacinia lectus amet.`,
-    },
-    {
-      title: `Business Insurance`,
-      description: `Braesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
-    massa ultrices porttitor metus
-     eleifend lacinia lectus amet.`,
-    },
-  ];
+  // $scope.insurance_covers = [
+  //   {
+  //     title: "Motor Insurance",
+  //     description: `Ensure your well-being with medical coverage for treatments,
+  //           prescriptions, and emergencies.`,
+  //   },
+  //   {
+  //     title: `Medical Insurance`,
+  //     description: `Provides indemnity against loss or damage to property
+  //   following forcible or violent entry or exit from insured
+  //   premises.`,
+  //   },
+  //   {
+  //     title: `Travel Insurance`,
+  //     description: `Lorem ipsum litora praesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
+  //    massa ultrices porttitor metus
+  //     eleifend lacinia lectus amet.`,
+  //   },
+  //   {
+  //     title: `Domestic Insurance`,
+  //     description: `Ltora praesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
+  //   massa ultrices porttitor metus
+  //    eleifend lacinia lectus amet.`,
+  //   },
+  //   {
+  //     title: `Marine Insurance`,
+  //     description: `Maesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
+  //   massa ultrices porttitor metus
+  //    eleifend lacinia lectus amet.`,
+  //   },
+  //   {
+  //     title: `Business Insurance`,
+  //     description: `Braesent accumsan litora placerat tempor ac enim viverra faucibus felis, faucibus erat fringilla
+  //   massa ultrices porttitor metus
+  //    eleifend lacinia lectus amet.`,
+  //   },
+  // ];
+  // index Insurance covers
+$scope.insurance_covers = [
+  {
+    title: "Motor Insurance",
+    description: "Get coverage for your vehicles, protecting you against financial loss in case of accidents, theft, or damage to your vehicle."
+  },
+  {
+    title: "Medical Insurance",
+    description: "Safeguard your health and financial well-being with comprehensive medical insurance. Receive coverage for medical treatments, prescriptions, and emergencies, ensuring you have the support you need when facing health-related challenges."
+  },
+  {
+    title: "Travel Insurance",
+    description: "Ensure a worry-free journey with coverage for unexpected events such as trip cancellations, medical emergencies, and lost luggage."
+  },
+  {
+    title: "Domestic Insurance",
+    description: "Protect your home and belongings with coverage against various risks, providing financial security in case of unexpected events."
+  },
+  {
+    title: "Marine Insurance",
+    description: "Safeguard your goods during transit by sea with marine insurance, covering risks such as damage, loss, or theft of cargo."
+  },
+  {
+    title: "Business Insurance",
+    description: "Secure your business against potential risks and losses, ensuring continuity and financial protection for various aspects of your enterprise."
+  },
+];
+
 
   // set insurance packages
   const extractPackage = (p) => {
