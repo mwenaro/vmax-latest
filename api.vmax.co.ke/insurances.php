@@ -12,14 +12,14 @@ include('crud_funcs2.php');
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
 
-$id = isset($_GET['id']) ? $_GET['id'] :  null;
+
 
 switch ($method) {
     case 'GET':
         handleGET();
         break;
     case 'POST':
-        is_null($id)? handlePOST() : handlePUT();
+        is_null(isset($_GET['id'])?? null )? handlePOST() : handlePUT();
         break;
     case 'PUT':
         handlePUT();
@@ -28,7 +28,7 @@ switch ($method) {
         handleDELETE();
         break;
     default:
-        echo json_encode(['error' => 'Unsupported HTTP method']);
+        echo json_encode(["error" => "Unsupported HTTP method"]);
         break;
 }
 

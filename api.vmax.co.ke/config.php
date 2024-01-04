@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "vmaxcoke_user";
-$password = "-I1GCpJTpumH";
+$password = "TfZt5aGlB^Ca";
 $dbname = "vmaxcoke_vmax";
 
 ?>

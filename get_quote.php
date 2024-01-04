@@ -15,8 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $phone = $_POST["phone"];
     $email = $_POST["email"];
-    $clamType = $_POST["claim-type"];
-    $message = $_POST["message"];
+     $message = $_POST["message"];
     
     // // isset
     // if(isset($_POST['age']) ){
@@ -27,9 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_body = "Name: $name\n";
     $email_body .= "Phone: $phone\n";
     $email_body .= "Email: $email\n";
-    $email_body .= "ClamType:\n$clamType\n";
     $email_body. = isset($_POST['age']) ? "\nAge : ".$_POST['age']. "\n" :""
-    $email_body. = isset($_POST['claim-type']) ? "\nClaim Type : ".$_POST['claim-type']. "\n" :""
+    $email_body. = isset($_POST['insurance-cover']) ? "\nInsurance Cover : ".$_POST['insurance-cover']. "\n" :""
     $email_body. = isset($_POST['destination-of-travel']) ? "\nDestination of Travel : ".$_POST['destination-of-travel']. "\n" :""
     $email_body. = isset($_POST['duration-of-travel']) ? "\nDuration of Travel : ".$_POST['duration-of-travel']. "\n" :""
     $email_body. = isset($_POST['limit-of-cover']) ? "\nLimit of Cover : ".$_POST['limit-of-cover']. "\n" :""

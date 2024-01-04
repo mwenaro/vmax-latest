@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_body = "Name: $name\n";
     $email_body .= "Phone: $phone\n";
     $email_body .= "Email: $email\n";
+    $email_body. = isset($_POST['insurance-cover']) ? "\nInsurance-cover : ".$_POST['insurance-cover']. "\n" :""
     $email_body. = isset($_POST['policy-number']) ? "\nPolicy-number : ".$_POST['policy-number']. "\n" :""
     $email_body. = isset($_POST['estimated-loss']) ? "\nEstimated-loss : ".$_POST['estimated-loss']. "\n" :""
     $email_body. = isset($_POST['date']) ? "\nDate : ".$_POST['date']. "\n" :""
