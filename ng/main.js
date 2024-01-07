@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
   async function getData() {
     try {
       const data = await (
-        await fetch("https://vmaxapi.fonfixrepairs.co.ke/insurances.php")
+        // await fetch("https://vmaxapi.fonfixrepairs.co.ke/insurances.php")
+        await fetch("https://api.vmax.co.ke/insurances.php")
       ).json();
       fetchPackages = data.length ? data : [];
       console.log({ data });
